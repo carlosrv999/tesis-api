@@ -1,0 +1,3 @@
+export JENKINS_URL="http://200.121.226.123:8080"
+export GITHUB_USER="carlosrv999"
+export GITHUB_BASIC_AUTH="Y2FybG9zcnY5OTk6Q2FybGl0b3MxMSE="
