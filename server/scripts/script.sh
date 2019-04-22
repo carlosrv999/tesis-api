@@ -10,11 +10,11 @@ curl -X POST \
             -H 'Content-Type: application/json' \
             -H 'cache-control: no-cache' \
             -d "{
-        \"name\": \"$appname\"
+        \"name\": \"$GITHUB_REPO_PREFIX-$appname\"
 }"
 echo "Creating push hook in repo"
 curl -X POST \
-  https://api.github.com/repos/$GITHUB_USER/$appname/hooks \
+  https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO_PREFIX-$appname/hooks \
   -H "Authorization: Basic $GITHUB_BASIC_AUTH" \
   -H 'Content-Type: application/json' \
   -H 'cache-control: no-cache' \
@@ -28,12 +28,13 @@ curl -X POST \
 	}
 	
 }"
-git clone git@github.com:$GITHUB_USER/lb-test.git $appname
+git clone git@github.com:$GITHUB_USER/$GITHUB_MAIN_BPNODEMONGO_REPO.git $appname
 cd $appname
 rm -rf .git
 sed -i "2s/.*/  \"name\": \"${appname}\",/" package.json
+printf "# $appname\nNew Boilerplate app" > README.md
 git init
-git remote add origin git@github.com:$GITHUB_USER/$appname.git
+git remote add origin git@github.com:$GITHUB_USER/$GITHUB_REPO_PREFIX-$appname.git
 git add .
 git commit -m "first commit"
 git push origin master
