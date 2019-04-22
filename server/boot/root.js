@@ -6,14 +6,14 @@ module.exports = function (server) {
   var router = server.loopback.Router();
   router.get('/', server.loopback.status());
   router.get('/test', (req, res) => {
-    execProcess.result("sh server/scripts/script.sh carlosrv21", function (err, response) {
+    execProcess.result("sh server/scripts/script.sh carlosrv21 >> app.log", function (err, response) {
       if (!err) {
-        console.log(response);
+        res.status(200).send({ "ok": "okidoki" });
       } else {
-        console.log(err);
+        res.status(500).send({"error": JSON.stringify(err)});
       }
     });
-    res.status(200).send({ "ok": "okidoki" });
+    
   });
   server.use(router);
 };

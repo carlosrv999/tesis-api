@@ -1,7 +1,9 @@
 #!/bin/bash
+date -u
 appname=$1
 cd ..
 #Create git repo
+echo "Creating Git Repo"
 curl -X POST \
   https://api.github.com/user/repos \
             -H "Authorization: Basic $GITHUB_BASIC_AUTH" \
@@ -10,6 +12,7 @@ curl -X POST \
             -d "{
         \"name\": \"$appname\"
 }"
+echo "Creating push hook in repo"
 curl -X POST \
   https://api.github.com/repos/$GITHUB_USER/$appname/hooks \
   -H "Authorization: Basic $GITHUB_BASIC_AUTH" \
