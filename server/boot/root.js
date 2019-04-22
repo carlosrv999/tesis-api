@@ -6,7 +6,7 @@ module.exports = function (server) {
   var router = server.loopback.Router();
   router.get('/', server.loopback.status());
   router.get('/test', (req, res) => {
-    execProcess.result("sh server/scripts/script.sh carlosrv21 >> app.log", function (err, response) {
+    execProcess.result("sh server/scripts/script.sh carlosrv22 >> app.log", function (err, response) {
       if (!err) {
         res.status(200).send({ "ok": "okidoki" });
       } else {
