@@ -3,13 +3,14 @@ const execProcess = require("../exec.js");
 const request = require('request');
 const env = require('../../env.json');
 const utils = require('./utils');
+var bodyParser = require('body-parser');
 
 module.exports = function (server) {
   // Install a `/` route that returns server status
   var router = server.loopback.Router();
   router.get('/', server.loopback.status());
   router.post('/createApp', (req, res) => {
-    console.log(req);
+    console.log(req.body);
     let appname = req.body.appname;
     let jenkins_crumb = req.body.jenkins_crumb;
     execProcess.result(`sh server/scripts/script.sh ${appname} >> app.log`, function (err, response) {
@@ -37,5 +38,8 @@ module.exports = function (server) {
     });
 
   });
+
   server.use(router);
+  server.use(bodyParser.json());
+
 };
