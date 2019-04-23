@@ -3,7 +3,6 @@ const execProcess = require("../exec.js");
 const request = require('request');
 const env = require('../../env.json');
 const utils = require('./utils');
-var bodyParser = require('body-parser');
 
 module.exports = function (server) {
   // Install a `/` route that returns server status
@@ -40,6 +39,5 @@ module.exports = function (server) {
   });
 
   server.use(router);
-  server.use(bodyParser.json());
 
 };
